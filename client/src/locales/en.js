@@ -6,6 +6,8 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    restocking: 'Restocking',
+    reports: 'Reports',
     companyName: 'Catalyst Components',
     subtitle: 'Inventory Management System'
   },
@@ -106,6 +108,8 @@ export default {
     title: 'Orders',
     description: 'View and manage customer orders',
     allOrders: 'All Orders',
+    submittedOrdersTitle: 'Submitted Restocking Orders',
+    leadTime: 'Lead Time',
     totalOrders: 'Total Orders',
     totalRevenue: 'Total Revenue',
     avgOrderValue: 'Avg Order Value',
@@ -116,6 +120,7 @@ export default {
       orderNumber: 'Order Number',
       orderId: 'Order ID',
       orderDate: 'Order Date',
+      submittedDate: 'Submitted',
       date: 'Date',
       customer: 'Customer',
       category: 'Category',
@@ -126,6 +131,32 @@ export default {
       status: 'Status',
       expectedDelivery: 'Expected Delivery',
       actualDelivery: 'Actual Delivery'
+    }
+  },
+
+  // Restocking
+  restocking: {
+    title: 'Restocking',
+    description: 'Set a budget and place a restocking order based on demand forecasts',
+    budgetTitle: 'Available Budget',
+    recommendationsTitle: 'Recommended Items',
+    placeOrder: 'Place Order',
+    placing: 'Submitting…',
+    placed: 'Order {orderNumber} submitted successfully.',
+    viewInOrders: 'View in Orders',
+    empty: 'No items recommended within this budget. Try increasing the budget.',
+    runningTotal: 'Selected Total',
+    days: 'days',
+    selectAll: 'Select all items',
+    selectRow: 'Select {sku}',
+    table: {
+      onHand: 'On Hand',
+      forecasted: 'Forecasted',
+      shortage: 'Shortage',
+      suggested: 'Suggested Qty',
+      unitCost: 'Unit Cost',
+      lineTotal: 'Line Total',
+      leadTime: 'Lead Time'
     }
   },
 
@@ -204,6 +235,7 @@ export default {
     shipped: 'Shipped',
     processing: 'Processing',
     backordered: 'Backordered',
+    submitted: 'Submitted',
     inStock: 'In Stock',
     lowStock: 'Low Stock',
     adequate: 'Adequate'

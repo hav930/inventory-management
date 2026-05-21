@@ -286,13 +286,12 @@
       @close="showBacklogModal = false"
     />
 
-    <PurchaseOrderModal
-      :is-open="showPOModal"
-      :backlog-item="selectedBacklogForPO"
-      :mode="poModalMode"
-      @close="showPOModal = false"
-      @po-created="handlePOCreated"
-    />
+    <!--
+      PurchaseOrderModal not yet implemented. Supporting state and handlers
+      (showPOModal, selectedBacklogForPO, openCreatePOModal, etc.) are kept
+      so the "Create PO" / "View PO" buttons stay wired up — restore this
+      tag once the component exists.
+    -->
   </div>
 </template>
 

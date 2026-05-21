@@ -1,0 +1,61 @@
+/*
+ * Design tokens — Linear / Vercel-style monochrome palette + Tailwind base.
+ * The vars below are also referenced from tailwind.config.js so utility
+ * classes and existing scoped CSS share a single source of truth.
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Surfaces */
+  --color-bg: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-hover: #f4f4f5;
+  --color-surface-active: #e4e4e7;
+
+  /* Borders */
+  --color-border: #e4e4e7;
+  --color-border-strong: #d4d4d8;
+
+  /* Text */
+  --color-text: #18181b;
+  --color-text-muted: #71717a;
+  --color-text-subtle: #a1a1aa;
+
+  /* Accent — single, restrained */
+  --color-accent: #5b5bd6;
+  --color-accent-hover: #4a4ac4;
+  --color-accent-soft: #ebebfa;
+
+  /* Status */
+  --color-success: #16a34a;
+  --color-warning: #ca8a04;
+  --color-danger: #dc2626;
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  /* Typography */
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+html,
+body {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}

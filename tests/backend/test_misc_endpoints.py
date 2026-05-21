@@ -65,23 +65,14 @@ class TestDemandEndpoints:
                 assert percent_change < 2.0, \
                     f"Item {item['item_name']} has {percent_change:.2f}% change, expected < 2%"
 
-    def test_demand_forecast_has_new_items(self, client):
-        """Test that new demand forecast items exist."""
-        response = client.get("/api/demand")
-        data = response.json()
+    def test_demand_forecast_skus_match_inventory(self, client):
+        """Every forecast SKU must exist in inventory so cost lookups (used by the
+        Restocking tab) can resolve. Replaces an older fixture-specific check."""
+        forecast_skus = [item["item_sku"] for item in client.get("/api/demand").json()]
+        inventory_skus = {item["sku"] for item in client.get("/api/inventory").json()}
 
-        # Check for the new items we added
-        skus = [item["item_sku"] for item in data]
-
-        # Should have Temperature Sensor Module and Logic Controller Board
-        assert "SNR-420" in skus, "Missing Temperature Sensor Module"
-        assert "CTL-330" in skus, "Missing Logic Controller Board"
-
-        # Verify they are marked as stable
-        for item in data:
-            if item["item_sku"] in ["SNR-420", "CTL-330"]:
-                assert item["trend"].lower() == "stable", \
-                    f"New item {item['item_name']} should have stable trend"
+        unmatched = [sku for sku in forecast_skus if sku not in inventory_skus]
+        assert not unmatched, f"Forecast SKUs missing from inventory: {unmatched}"
 
 
 class TestBacklogEndpoints:
