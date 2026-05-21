@@ -101,22 +101,23 @@ export default {
 </script>
 
 <style scoped>
+/*
+ * FilterBar now lives inside the content column as a slim topbar, so the old
+ * `position: sticky; top: 70px` (offset for the removed 70px top nav) is gone.
+ * The parent <main> is the scroll container; this stays at the top of it.
+ */
 .filters-bar {
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
-  padding: 0.75rem 0;
-  position: sticky;
-  top: 70px;
-  z-index: 90;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: 8px 0;
+  flex-shrink: 0;
 }
 
 .filters-container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 24px;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .filters-grid {
@@ -133,46 +134,46 @@ export default {
 }
 
 .filter-group label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #64748b;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
   white-space: nowrap;
 }
 
 .filter-select {
-  padding: 0.4rem 0.75rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 6px;
-  font-size: 0.813rem;
-  color: #0f172a;
-  background: white;
+  padding: 4px 8px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-surface);
   cursor: pointer;
-  transition: all 0.2s;
-  font-weight: 500;
+  transition: border-color 0.15s;
+  font-weight: 400;
   min-width: 140px;
 }
 
 .filter-select:hover {
-  border-color: #94a3b8;
+  border-color: var(--color-text-subtle);
 }
 
 .filter-select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-soft);
 }
 
 .reset-filters-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.4rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  color: #64748b;
+  padding: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  color: var(--color-text-muted);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.15s;
   flex-shrink: 0;
 }
 
