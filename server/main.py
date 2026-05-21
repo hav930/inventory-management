@@ -447,6 +447,66 @@ def list_restocking_orders():
     return list(reversed(submitted_restocking_orders))
 
 
+# In-memory user-task store. The frontend (App.vue → TasksModal) loads/edits
+# user-created tasks via these endpoints alongside the per-user mock tasks
+# defined in useAuth.js. Restarting the server clears the list.
+class Task(BaseModel):
+    id: int
+    title: str
+    priority: Optional[str] = "medium"
+    dueDate: Optional[str] = None
+    status: str = "pending"
+
+
+class CreateTaskRequest(BaseModel):
+    title: str
+    priority: Optional[str] = "medium"
+    dueDate: Optional[str] = None
+
+
+_user_tasks: List[dict] = []
+_next_task_id: int = 1000
+
+
+@app.get("/api/tasks", response_model=List[Task])
+def list_tasks():
+    """Return user-created tasks, newest first."""
+    return list(reversed(_user_tasks))
+
+
+@app.post("/api/tasks", response_model=Task)
+def create_task(payload: CreateTaskRequest):
+    global _next_task_id
+    task = {
+        "id": _next_task_id,
+        "title": payload.title,
+        "priority": payload.priority or "medium",
+        "dueDate": payload.dueDate,
+        "status": "pending",
+    }
+    _next_task_id += 1
+    _user_tasks.append(task)
+    return task
+
+
+@app.delete("/api/tasks/{task_id}")
+def delete_task(task_id: int):
+    for idx, t in enumerate(_user_tasks):
+        if t["id"] == task_id:
+            _user_tasks.pop(idx)
+            return {"deleted": task_id}
+    raise HTTPException(status_code=404, detail=f"Task {task_id} not found")
+
+
+@app.patch("/api/tasks/{task_id}", response_model=Task)
+def toggle_task(task_id: int):
+    for t in _user_tasks:
+        if t["id"] == task_id:
+            t["status"] = "completed" if t["status"] == "pending" else "pending"
+            return t
+    raise HTTPException(status_code=404, detail=f"Task {task_id} not found")
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
